@@ -1,4 +1,4 @@
-export interface AuthErrorJsonPayload {
+export interface AuthError {
   code: string;
   message: string;
 }

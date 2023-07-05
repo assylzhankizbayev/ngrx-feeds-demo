@@ -1,7 +1,8 @@
+import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import { FeedErrorJsonPayload, FeedMedia } from '../models';
 
 export interface FeedState {
-  media: FeedMedia[];
+  media: EntityState<FeedMedia>;
   pageToken: string | null;
   nextPageToken: string | null;
   prevPageToken: string | null;
@@ -10,8 +11,10 @@ export interface FeedState {
   error: FeedErrorJsonPayload | null;
 }
 
+export const feedMediaAdapter = createEntityAdapter<FeedMedia>();
+
 export const feedInitialState: FeedState = {
-  media: [],
+  media: feedMediaAdapter.getInitialState(),
   pageToken: null,
   nextPageToken: null,
   prevPageToken: null,

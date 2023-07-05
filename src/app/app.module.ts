@@ -1,6 +1,6 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -8,11 +8,13 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
+import { FeedModule } from './features/feed/feed.module';
+
 import { authReducer } from './core/store/auth.reducer';
 import { AuthFacade } from './core/facade/auth.facade';
-import { AuthApiService } from './core/services/auth-api.service';
 import { AuthEffects } from './core/store/auth.effects';
-import { FeedModule } from './features/feed/feed.module';
+import { AuthApiService } from './core/services/auth-api.service';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +36,11 @@ import { FeedModule } from './features/feed/feed.module';
     // NPM modules
     // -
   ],
-  providers: [AuthApiService, AuthFacade],
+  providers: [
+    AuthApiService,
+    AuthFacade,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

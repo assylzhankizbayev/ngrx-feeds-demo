@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { AuthErrorJsonPayload, AuthToken } from '../models';
+import { AuthError, AuthToken } from '../models';
 
 export enum AuthActionTypes {
   Auth = '[Auth] Start Auth',
@@ -9,7 +9,7 @@ export enum AuthActionTypes {
 }
 
 export interface AuthErrorActionCommonPayload {
-  error: AuthErrorJsonPayload;
+  error: AuthError;
 }
 
 export interface LoginSuccessActionPayload {

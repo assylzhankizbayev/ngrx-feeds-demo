@@ -4,7 +4,6 @@ import {
   FeedMediaConstructorPayload,
 } from './feed-media.model';
 
-
 export interface FeedResponse<T = FeedApiData> {
   data: T;
 }

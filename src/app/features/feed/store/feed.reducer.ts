@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { FeedState, feedInitialState } from './feed.state';
+import { FeedState, feedInitialState, feedMediaAdapter } from './feed.state';
 import * as FeedActions from './feed.action';
 
 export const feedReducer = createReducer<FeedState>(
@@ -11,8 +11,11 @@ export const feedReducer = createReducer<FeedState>(
     };
   }),
   on(FeedActions.LoadFeedSuccessAction, (state, action): FeedState => {
+    const media = feedMediaAdapter.addMany(action.media, state.media);
+
     return {
       ...state,
+      media,
       isLoading: false,
       error: null,
     };
@@ -25,3 +28,10 @@ export const feedReducer = createReducer<FeedState>(
     };
   })
 );
+
+// export const productsReducer = createReducer(
+//   productsAdapter.getInitialState(),
+//   on(ProductsActions.loadAllSuccess, (state, { products }) =>
+//     productsAdapter.addMany(products, state)
+//   ),
+// );

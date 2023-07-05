@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { FeedRoutingModule } from './feed-routing.module';
 import { FeedComponent } from './feed.component';
-import { FeedService } from './services/feed-api.service';
+import { FeedApiService } from './services/feed-api.service';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { feedReducer } from './store/feed.reducer';
@@ -19,6 +19,6 @@ import { feedReducer } from './store/feed.reducer';
     StoreModule.forFeature('feed', feedReducer),
     EffectsModule.forFeature([]),
   ],
-  providers: [FeedService],
+  providers: [FeedApiService],
 })
 export class FeedModule {}

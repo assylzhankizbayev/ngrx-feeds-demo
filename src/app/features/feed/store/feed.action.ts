@@ -1,6 +1,11 @@
-import { createAction, props } from '@ngrx/store';
+import {
+  createAction,
+  createActionGroup,
+  emptyProps,
+  props,
+} from '@ngrx/store';
 
-import { FeedErrorJsonPayload } from '../models';
+import { Feed, FeedErrorJsonPayload, FeedMedia } from '../models';
 
 export enum FeedActionTypes {
   LoadFeed = '[Feed] Load Feed',
@@ -12,11 +17,7 @@ export interface FeedErrorActionCommonPayload {
   error: FeedErrorJsonPayload;
 }
 
-export interface LoadFeedSuccessActionPayload {
-  // token: AuthToken;
-  // successRedirectUrl?: string | null;
-  media: any;
-}
+type LoadFeedSuccessActionPayload = Feed;
 
 export const LoadFeedAction = createAction(FeedActionTypes.LoadFeed);
 

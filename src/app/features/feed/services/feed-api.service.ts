@@ -5,7 +5,7 @@ import { Observable, map } from 'rxjs';
 import { Feed, FeedResponse } from '../models';
 
 @Injectable()
-export class FeedService {
+export class FeedApiService {
   constructor(private _http: HttpClient) {}
 
   public getRecommendedFeeds(): Observable<Feed> {
