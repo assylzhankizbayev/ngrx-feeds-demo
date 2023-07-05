@@ -4,6 +4,25 @@ import * as AuthActions from './auth.actions';
 
 export const authReducer = createReducer<AuthState>(
   authInitialState,
+  on(AuthActions.LoadCacheAction, (state, action): AuthState => {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }),
+  on(AuthActions.LoadCacheSuccessAction, (state, action): AuthState => {
+    return {
+      ...state,
+      token: action.token,
+      isLoading: false,
+    };
+  }),
+  on(AuthActions.LoadCacheErrorAction, (state, action): AuthState => {
+    return {
+      ...authInitialState,
+      error: action.error,
+    };
+  }),
   on(AuthActions.AuthAction, (state, action): AuthState => {
     return {
       ...state,
@@ -27,5 +46,5 @@ export const authReducer = createReducer<AuthState>(
       token: null,
       error: action.error,
     };
-  }),
+  })
 );

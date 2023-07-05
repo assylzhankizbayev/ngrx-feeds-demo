@@ -9,10 +9,11 @@ import {
 } from '@angular/common/http';
 
 import { Observable, tap } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor(private _authService: AuthService) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -35,11 +36,15 @@ export class AuthInterceptor implements HttpInterceptor {
     //   )
     // );
 
-    request = request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${this.auth.getToken()}`
-      }
-    });
-    return next.handle(request);
+    const token = this._authService.token?.accessToken;
+    
+    if (token) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+    return next.handle(req);
   }
 }

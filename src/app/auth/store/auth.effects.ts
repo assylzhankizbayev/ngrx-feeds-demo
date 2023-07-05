@@ -4,17 +4,39 @@ import { forkJoin, of, switchMap } from 'rxjs';
 
 import * as AuthActions from './auth.actions';
 import { AuthApiService } from '../services/auth-api.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthEffects {
-  public get authEffectsName(): string {
-    return `[NGRX][AuthLib][AuthEffects]`;
-  }
-
   constructor(
     private _actions$: Actions,
-    private _authApiService: AuthApiService
+    private _authApiService: AuthApiService,
+    private _authService: AuthService
   ) {}
+
+  public onLoad$ = createEffect(
+    () => {
+      return this._actions$.pipe(
+        ofType(AuthActions.LoadCacheAction),
+        switchMap((action) => {
+          const token = this._authService.getAuthTokenFromStorage();
+
+          if (!token) {
+            return of(AuthActions.AuthAction());
+          }
+
+          return of(
+            AuthActions.LoadCacheSuccessAction({
+              token: token ?? null,
+            })
+          );
+        })
+      );
+    },
+    {
+      dispatch: true,
+    }
+  );
 
   public onAuth$ = createEffect(
     () => {
@@ -41,9 +63,10 @@ export class AuthEffects {
           });
         }),
         switchMap((authData) => {
+          this._authService.setAuthTokenToStorage(authData.authToken);
+
           return of(
             AuthActions.AuthSuccessAction({
-              successRedirectUrl: '',
               token: authData.authToken,
             })
           );
