@@ -8,10 +8,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { authReducer } from './core/state/auth.reducer';
+import { authReducer } from './core/store/auth.reducer';
 import { AuthFacade } from './core/facade/auth.facade';
 import { AuthApiService } from './core/services/auth-api.service';
-import { AuthEffects } from './core/state/auth.effects';
+import { AuthEffects } from './core/store/auth.effects';
+import { FeedModule } from './features/feed/feed.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +29,7 @@ import { AuthEffects } from './core/state/auth.effects';
     EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     CoreModule,
+    FeedModule,
 
     // NPM modules
     // -
