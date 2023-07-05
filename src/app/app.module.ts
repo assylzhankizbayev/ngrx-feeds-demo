@@ -23,8 +23,8 @@ import { AuthEffects } from './core/state/auth.effects';
     // App moodules
     AppRoutingModule,
     // StoreModule.forRoot({}),
-    StoreModule.forRoot({ auth: authReducer }),
     // EffectsModule.forRoot([]),
+    StoreModule.forRoot({ auth: authReducer }),
     EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     CoreModule,

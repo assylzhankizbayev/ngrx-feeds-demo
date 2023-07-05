@@ -4,13 +4,13 @@ import * as AuthActions from './auth.actions';
 
 export const authReducer = createReducer<AuthState>(
   authInitialState,
-  on(AuthActions.LoginAction, (state, action): AuthState => {
+  on(AuthActions.AuthAction, (state, action): AuthState => {
     return {
       ...state,
       isLoading: true,
     };
   }),
-  on(AuthActions.LoginSuccessAction, (state, action): AuthState => {
+  on(AuthActions.AuthSuccessAction, (state, action): AuthState => {
     return {
       ...state,
       isAuthenticated: true,
@@ -19,7 +19,7 @@ export const authReducer = createReducer<AuthState>(
       error: null,
     };
   }),
-  on(AuthActions.LoginErrorAction, (state, action): AuthState => {
+  on(AuthActions.AuthErrorAction, (state, action): AuthState => {
     return {
       ...state,
       isAuthenticated: false,

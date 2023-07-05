@@ -1,48 +1,30 @@
 import { createAction, props } from '@ngrx/store';
 
-import { AuthErrorJsonPayload, AuthTokenJsonPayload } from '../models';
+import { AuthErrorJsonPayload, AuthToken } from '../models';
 
 export enum AuthActionTypes {
-  Login = '[Auth] Auth Login',
-  LoginSuccess = '[Auth] Auth Login Success',
-  LoginError = '[Auth] Auth Login Error',
+  Auth = '[Auth] Start Auth',
+  AuthSuccess = '[Auth] Auth Success',
+  AuthError = '[Auth] Auth Error',
 }
 
 export interface AuthErrorActionCommonPayload {
   error: AuthErrorJsonPayload;
 }
 
-export interface LoadSuccessActionPayload {
-  // isLoggedIn: boolean;
-  // iframeConsumer: LoginIframeConsumer | null;
-  // loginType: LoginType | null;
-  // profile: UserJsonPayload | null;
-  // token: AuthTokenJsonPayload | null;
-}
-
-export interface LoginActionPayload {
-  username: string;
-  password: string;
-  successRedirectUrl?: string | null;
-}
-
 export interface LoginSuccessActionPayload {
-  // profile: string | null;
-  token: AuthTokenJsonPayload;
+  token: AuthToken;
   successRedirectUrl?: string | null;
 }
 
-export const LoginAction = createAction(
-  AuthActionTypes.Login,
-  props<LoginActionPayload>()
-);
+export const AuthAction = createAction(AuthActionTypes.Auth);
 
-export const LoginSuccessAction = createAction(
-  AuthActionTypes.LoginSuccess,
+export const AuthSuccessAction = createAction(
+  AuthActionTypes.AuthSuccess,
   props<LoginSuccessActionPayload>()
 );
 
-export const LoginErrorAction = createAction(
-  AuthActionTypes.LoginError,
+export const AuthErrorAction = createAction(
+  AuthActionTypes.AuthError,
   props<AuthErrorActionCommonPayload>()
 );

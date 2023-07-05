@@ -20,7 +20,7 @@ import { AuthFacade } from './facade/auth.facade';
     // -
   ],
   declarations: [],
-  providers: [AuthApiService, AuthFacade],
+  providers: [],
   exports: [],
 })
 export class CoreModule {}

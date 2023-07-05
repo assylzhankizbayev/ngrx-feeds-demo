@@ -7,9 +7,9 @@ import * as AuthActions from '../state/auth.actions';
 export class AuthFacade {
   constructor(private _store: Store) {}
 
-  public login(payload: AuthActions.LoginActionPayload): void {
+  public auth(): void {
     console.log('facade call');
-    
-    this._store.dispatch(AuthActions.LoginAction(payload));
+
+    this._store.dispatch(AuthActions.AuthAction());
   }
 }

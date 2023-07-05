@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { forkJoin, of, switchMap } from 'rxjs';
 
 import * as AuthActions from './auth.actions';
-import { forkJoin, of, switchMap } from 'rxjs';
 import { AuthApiService } from '../services/auth-api.service';
 
 @Injectable()
@@ -16,25 +16,12 @@ export class AuthEffects {
     private _authApiService: AuthApiService
   ) {}
 
-  public onLogin$ = createEffect(
+  public onAuth$ = createEffect(
     () => {
       return this._actions$.pipe(
-        ofType(AuthActions.LoginAction),
+        ofType(AuthActions.AuthAction),
         switchMap((action) => {
-          console.log('auth effects');
-          
-          const username = action.username;
-          const password = action.password;
-          const redirectUrl = action.successRedirectUrl ?? null;
-
-          if (!username || !password) {
-            // throw new AuthError({
-            //   code: AuthError.LOGIN_INVALID_CREDENTIALS_ERROR_CODE,
-            //   message: 'Empty user credentials',
-            // });
-
-            throw new Error('Empty user credentials');
-          }
+          const redirectUrl = null;
 
           return forkJoin({
             successRedirectUrl: of(redirectUrl),
@@ -55,10 +42,9 @@ export class AuthEffects {
         }),
         switchMap((authData) => {
           return of(
-            AuthActions.LoginSuccessAction({
+            AuthActions.AuthSuccessAction({
               successRedirectUrl: '',
-              // profile: authData.userProfile ? authData.userProfile.toJSON() : null,
-              token: authData.authToken.data,
+              token: authData.authToken,
             })
           );
         })

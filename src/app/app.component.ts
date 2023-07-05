@@ -1,23 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
+
 import { AuthFacade } from './core/facade/auth.facade';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
-  title = 'ngrx-post-demo';
-
-  constructor(private _authFacade: AuthFacade) {
-    console.log('comp init');
-    
-  }
+  constructor(
+    private _authFacade: AuthFacade,
+    private _cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this._authFacade.login({
-      username: 'assylzhan',
-      password: '12345',
-    });
+    this._authFacade.auth();
   }
 }
