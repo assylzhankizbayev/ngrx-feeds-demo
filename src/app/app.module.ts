@@ -39,7 +39,6 @@ function appInitializerFactory(
     StoreModule.forRoot({ auth: authReducer }),
     EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    FeedModule,
 
     // NPM modules
     // -

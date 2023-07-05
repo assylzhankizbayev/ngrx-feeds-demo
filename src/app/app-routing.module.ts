@@ -5,8 +5,19 @@ import { AppComponent } from './app.component';
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
     component: AppComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: '/feed',
+      },
+      {
+        path: 'feed',
+        loadChildren: () =>
+          import('./features/feed/feed.module').then((m) => m.FeedModule),
+      },
+    ],
   },
 ];
 

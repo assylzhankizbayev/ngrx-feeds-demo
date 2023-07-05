@@ -14,6 +14,7 @@ export const authReducer = createReducer<AuthState>(
     return {
       ...state,
       token: action.token,
+      isAuthenticated: !!action.token,
       isLoading: false,
     };
   }),
@@ -32,8 +33,8 @@ export const authReducer = createReducer<AuthState>(
   on(AuthActions.AuthSuccessAction, (state, action): AuthState => {
     return {
       ...state,
-      isAuthenticated: true,
       isLoading: false,
+      isAuthenticated: !!action.token,
       token: action.token,
       error: null,
     };
