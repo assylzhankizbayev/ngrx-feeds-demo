@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
+import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AppComponent,
+    component: DefaultLayoutComponent,
     children: [
       {
         path: '',

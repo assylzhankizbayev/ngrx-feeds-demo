@@ -6,8 +6,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
-import { FeedModule } from './features/feed/feed.module';
+import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
 
 import { authReducer } from './auth/store/auth.reducer';
 import { AuthEffects } from './auth/store/auth.effects';
@@ -16,6 +17,7 @@ import { AuthApiService } from './auth/services/auth-api.service';
 import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
 import { AuthEventService } from './auth/services/auth-event.service';
 import { AuthStoreService } from './auth/services/auth-store.service';
+import { RouterModule } from '@angular/router';
 
 function appInitializerFactory(
   store: Store,
@@ -28,17 +30,19 @@ function appInitializerFactory(
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, DefaultLayoutComponent],
   imports: [
     // General moodules
     BrowserModule,
     HttpClientModule,
+    RouterModule,
 
     // App moodules
     AppRoutingModule,
     StoreModule.forRoot({ auth: authReducer }),
     EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    SharedModule,
 
     // NPM modules
     // -
