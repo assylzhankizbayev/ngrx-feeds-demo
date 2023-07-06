@@ -1,4 +1,4 @@
-import { EntityState, createEntityAdapter } from '@ngrx/entity';
+import { EntityState, IdSelector, createEntityAdapter } from '@ngrx/entity';
 import { FeedErrorJsonPayload, FeedMedia } from '../models';
 
 export interface FeedState {
@@ -11,7 +11,9 @@ export interface FeedState {
   error: FeedErrorJsonPayload | null;
 }
 
-export const feedMediaAdapter = createEntityAdapter<FeedMedia>();
+const selectId: IdSelector<FeedMedia> = ({ mediaId }) => mediaId;
+
+export const feedMediaAdapter = createEntityAdapter<FeedMedia>({ selectId });
 
 export const feedInitialState: FeedState = {
   media: feedMediaAdapter.getInitialState(),

@@ -7,6 +7,8 @@ import { FeedApiService } from './services/feed-api.service';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { feedReducer } from './store/feed.reducer';
+import { FeedEffects } from './store/feed.effects';
+import { FeedStoreService } from './services/feed-store.service';
 
 @NgModule({
   declarations: [FeedComponent],
@@ -17,8 +19,8 @@ import { feedReducer } from './store/feed.reducer';
     // App modules
     FeedRoutingModule,
     StoreModule.forFeature('feed', feedReducer),
-    EffectsModule.forFeature([]),
+    EffectsModule.forFeature([FeedEffects]),
   ],
-  providers: [FeedApiService],
+  providers: [FeedApiService, FeedStoreService],
 })
 export class FeedModule {}

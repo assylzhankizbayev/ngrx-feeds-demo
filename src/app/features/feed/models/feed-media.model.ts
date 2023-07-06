@@ -49,7 +49,7 @@ export interface FeedMediaApiData {
 
 export interface FeedMediaConstructorPayload {
   author: FeedAuthorConstructorPayload | null;
-  mediaId: string | null;
+  mediaId: string;
   mediaName: string | null;
   mediaDescription: string | null;
   createdAt: number | Date | null;
@@ -103,7 +103,7 @@ export interface FeedMediaUrls {
 
 export class FeedMedia {
   public author: FeedMediaAuthor | null;
-  public mediaId: string | null;
+  public mediaId: string;
   public mediaName: string | null;
   public mediaDescription: string | null;
   public createdAt: number | Date | null;

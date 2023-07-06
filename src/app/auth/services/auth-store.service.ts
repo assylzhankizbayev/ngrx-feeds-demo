@@ -46,6 +46,7 @@ export class AuthStoreService implements OnDestroy {
   }
 
   public token$: Observable<AuthToken | null>;
+  public authenticated$: Observable<boolean>;
 
   protected _token: AuthToken | null;
   protected _authError: AuthError | null;
@@ -60,6 +61,7 @@ export class AuthStoreService implements OnDestroy {
     private _authEventsService: AuthEventService
   ) {
     this.token$ = EMPTY;
+    this.authenticated$ = EMPTY;
 
     this._token = null;
     this._authError = null;
@@ -166,11 +168,12 @@ export class AuthStoreService implements OnDestroy {
         }
 
         console.log('token selector', tokenJson);
-        
 
         return AuthToken.createFromJson(tokenJson);
       })
     );
+
+    this.authenticated$ = this._store.select(AuthSelectors.authenticatedState);
 
     this._initAuthStoreTriggers();
   }
@@ -188,7 +191,7 @@ export class AuthStoreService implements OnDestroy {
     const storeConnectedTrigger =
       this._authEventsService.authStoreConnected$.subscribe(() => {
         console.log('connected');
-        
+
         this._afterAuthStoreConnect();
       });
 

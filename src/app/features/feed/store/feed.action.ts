@@ -27,6 +27,6 @@ export const LoadFeedSuccessAction = createAction(
 );
 
 export const LoadFeedErrorAction = createAction(
-  FeedActionTypes.LoadFeedSuccess,
+  FeedActionTypes.LoadFeedError,
   props<FeedErrorActionCommonPayload>()
 );

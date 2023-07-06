@@ -3,6 +3,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { AuthStoreService } from './auth-store.service';
 import { AuthState } from '../store/auth.state';
 import { AuthToken } from '../models';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService implements OnDestroy {
@@ -12,6 +13,10 @@ export class AuthService implements OnDestroy {
 
   public get isAuthenticated(): boolean {
     return this._authStoreService.authenticatedState;
+  }
+
+  public get isAuthenticated$(): Observable<boolean> {
+    return this._authStoreService.authenticated$;
   }
 
   public get isLoading(): boolean {
