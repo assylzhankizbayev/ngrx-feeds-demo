@@ -11,6 +11,7 @@ import { feedReducer } from './store/feed.reducer';
 import { FeedEffects } from './store/feed.effects';
 import { FeedStoreService } from './services/feed-store.service';
 import { SharedModule } from '../../shared/shared.module';
+import { VideoplayerModule } from '../videoplayer/videoplayer.module';
 
 @NgModule({
   declarations: [FeedComponent],
@@ -24,6 +25,7 @@ import { SharedModule } from '../../shared/shared.module';
     StoreModule.forFeature('feed', feedReducer),
     EffectsModule.forFeature([FeedEffects]),
     SharedModule,
+    VideoplayerModule,
   ],
   providers: [FeedApiService, FeedStoreService],
 })
