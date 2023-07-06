@@ -1,1 +1,42 @@
-<p>feed works!</p>
+<div class="feeds">
+  <div *ngFor="let feed of feedMediaList" class="feeds__item">
+    <div class="feed-preview">
+      <img class="feed-preview__img" [src]="feed.thumbnailUrl" [alt]="feed.mediaName" />
+      <app-svg-icon class="feed-preview__play" icon="play"></app-svg-icon>
+    </div>
+
+    <div *ngIf="feed.author as author" class="feed-details">
+      <div class="feed-details__author">
+        <img
+          class="author-avatar"
+          [src]="author.userAvatarUrl"
+          alt="author.userName"
+        />
+
+        <span class="author-name">{{ author.userName }}</span>
+      </div>
+
+      <div class="feed-details__statistics">
+        <div class="feed-control">
+          <app-svg-icon class="feed-control__icon" icon="heart"></app-svg-icon>
+
+          <span class="feed-control__value">
+            {{ author.counters.likes | number }} отметок "Нравится"
+          </span>
+        </div>
+
+        <div class="feed-control">
+          <app-svg-icon class="feed-control__icon" icon="users"></app-svg-icon>
+
+          <span class="feed-control__value">
+            {{ author.counters.followers | number }} подписчики
+          </span>
+        </div>
+
+        <span class="feed-date">
+          {{ feed.createdAt | date : "longDate" }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
