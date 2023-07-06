@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { FeedRoutingModule } from './feed-routing.module';
 import { FeedComponent } from './feed.component';
@@ -26,6 +27,9 @@ import { VideoplayerModule } from '../videoplayer/videoplayer.module';
     EffectsModule.forFeature([FeedEffects]),
     SharedModule,
     VideoplayerModule,
+
+    // NPM modules
+    MatDialogModule,
   ],
   providers: [FeedApiService, FeedStoreService],
 })

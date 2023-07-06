@@ -1,8 +1,17 @@
 <div class="feeds">
   <div *ngFor="let feed of feedMediaList" class="feeds__item">
     <div class="feed-preview">
-      <img class="feed-preview__img" [src]="feed.thumbnailUrl" [alt]="feed.mediaName" />
-      <app-svg-icon class="feed-preview__play" icon="play"></app-svg-icon>
+      <img
+        class="feed-preview__img"
+        [src]="feed.thumbnailUrl"
+        [alt]="feed.mediaName"
+      />
+      <app-svg-icon
+        *ngIf="feed?.mediaUrl as mediaUrl"
+        class="feed-preview__play"
+        icon="play"
+        (click)="openVideoPlayer(mediaUrl)"
+      ></app-svg-icon>
     </div>
 
     <div *ngIf="feed.author as author" class="feed-details">

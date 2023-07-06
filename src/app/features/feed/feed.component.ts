@@ -10,6 +10,8 @@ import { Observable, Subject, finalize, first, takeUntil } from 'rxjs';
 import { FeedMedia } from './models';
 import { FeedStoreService } from './services/feed-store.service';
 import { AuthService } from '../../auth/services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { VideoplayerComponent } from '../videoplayer/videoplayer.component';
 
 @Component({
   selector: 'app-feed',
@@ -23,6 +25,7 @@ export class FeedComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<void>;
 
   constructor(
+    private _dialog: MatDialog,
     private _authService: AuthService,
     private _feedStoreService: FeedStoreService,
     private _cdr: ChangeDetectorRef
@@ -40,6 +43,12 @@ export class FeedComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
+  }
+
+  public openVideoPlayer(mediaUrl: string): void {
+    this._dialog.open(VideoplayerComponent, {
+      data: mediaUrl,
+    });
   }
 
   private _initTriggers(): void {

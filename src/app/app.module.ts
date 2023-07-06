@@ -18,6 +18,7 @@ import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
 import { AuthEventService } from './auth/services/auth-event.service';
 import { AuthStoreService } from './auth/services/auth-store.service';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 function appInitializerFactory(
   store: Store,
@@ -34,6 +35,7 @@ function appInitializerFactory(
   imports: [
     // General moodules
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     RouterModule,
 
