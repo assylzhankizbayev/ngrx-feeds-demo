@@ -48,6 +48,8 @@ export class FeedComponent implements OnInit, OnDestroy {
   public openVideoPlayer(mediaUrl: string): void {
     this._dialog.open(VideoplayerComponent, {
       data: mediaUrl,
+      height: '100%',
+      width: '100%',
     });
   }
 
