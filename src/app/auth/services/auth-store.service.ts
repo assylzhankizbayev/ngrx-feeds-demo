@@ -53,7 +53,6 @@ export class AuthStoreService implements OnDestroy {
   protected _authenticatedState: boolean;
   protected _loadingState: boolean;
 
-  protected _authTokenChangeSub: Subscription | null;
   protected _subscription: Subscription;
 
   constructor(
@@ -68,7 +67,6 @@ export class AuthStoreService implements OnDestroy {
     this._authenticatedState = false;
     this._loadingState = false;
 
-    this._authTokenChangeSub = null;
     this._subscription = new Subscription();
 
     // Reactive triggers setup
@@ -79,7 +77,7 @@ export class AuthStoreService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._authTokenChangeSub?.unsubscribe();
+    this._subscription.unsubscribe();
   }
 
   public setAuthToken(token: AuthToken): boolean {
@@ -109,6 +107,16 @@ export class AuthStoreService implements OnDestroy {
 
   public auth(): void {
     this._store.dispatch(AuthActions.AuthAction());
+  }
+
+  public authError(): void {
+    this.removeAuthToken();
+
+    this._store.dispatch(
+      AuthActions.AuthErrorAction({
+        error: { code: '401', message: 'Invalid token' },
+      })
+    );
   }
 
   // Helpers
@@ -167,8 +175,6 @@ export class AuthStoreService implements OnDestroy {
           return null;
         }
 
-        console.log('token selector', tokenJson);
-
         return AuthToken.createFromJson(tokenJson);
       })
     );
@@ -179,19 +185,18 @@ export class AuthStoreService implements OnDestroy {
   }
 
   private _initAuthStoreTriggers(): void {
-    this._authTokenChangeSub = this.token$
+    const authTokenChangeSub = this.token$
       .pipe(distinctUntilChanged())
       .subscribe((token) => {
         this._token = token;
-        // this._authEventsService.triggerTokenChangeEvent(token);
       });
+
+    this._subscription.add(authTokenChangeSub);
   }
 
   protected _initTriggers(): void {
     const storeConnectedTrigger =
       this._authEventsService.authStoreConnected$.subscribe(() => {
-        console.log('connected');
-
         this._afterAuthStoreConnect();
       });
 

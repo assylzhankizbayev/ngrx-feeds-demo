@@ -40,6 +40,13 @@ export class AuthService implements OnDestroy {
     this._authStoreService.setAuthToken(token);
   }
 
+  public authSyncError(): void {
+    this._authStoreService.authError();
+  }
+
+  public authReSync(): void {
+    this._authStoreService.dispatchLoadAction();
+  }
   public getAuthTokenFromStorage(): AuthToken | null {
     return this._authStoreService.getAuthToken();
   }

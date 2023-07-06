@@ -53,7 +53,7 @@ export class FeedComponent implements OnInit, OnDestroy {
 
   private _initTriggers(): void {
     this._authService.isAuthenticated$
-      .pipe(first(Boolean))
+      .pipe(takeUntil(this._destroy$))
       .subscribe((isAuthenticated) => {
         if (isAuthenticated) {
           this._feedStoreService.dispatchLoadAction();
@@ -61,7 +61,6 @@ export class FeedComponent implements OnInit, OnDestroy {
       });
 
     this.feedMediaList$.pipe(takeUntil(this._destroy$)).subscribe((list) => {
-      console.log('feed media list', list);
       this.feedMediaList = list;
 
       this._cdr.markForCheck();
